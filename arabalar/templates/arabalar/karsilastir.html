@@ -1,0 +1,38 @@
+{% extends 'arabalar/base.html' %}
+
+{% block content %}
+<div class="karsilastirma-sayfasi">
+    <div class="karsilastirma-basligi">
+        <h1>Araç Karşılaştırma Tablosu</h1>
+    </div>
+
+    <div id="karsilastirma-alani"></div>
+
+    <a href="{% url 'modeller' %}" class="geri-butonu" style="display: block; text-align: center; margin-top: 30px;">Tüm Modellere Geri Dön</a>
+</div>
+{% endblock %}
+
+{% block modals %}
+<div id="arac-ekle-modal" class="modal-overlay gizli">
+    <div class="modal-icerik">
+        <button id="modal-kapat" class="modal-kapat-btn">&times;</button>
+        <h2>Karşılaştırmaya Araç Ekle</h2>
+        <input type="text" id="modal-arama-cubugu" class="modal-arama" placeholder="Aramak için model adını yazın...">
+        <div id="modal-arac-listesi" class="modal-arac-listesi"></div>
+    </div>
+</div>
+
+<div id="uyelik-modal" class="modal-overlay gizli" style="display: none;">
+    <div class="modal-icerik">
+        <button class="kapat-btn" onclick="document.getElementById('uyelik-modal').style.display='none'">&times;</button>
+        <div id="giris-kutusu">
+            <h2 style="text-align:center;">Giriş Yap</h2>
+            <form id="form-giris">
+                <div class="input-grubu"><input type="email" id="giris-email" placeholder="E-posta" required></div>
+                <div class="input-grubu"><input type="password" id="giris-sifre" placeholder="Şifre" required></div>
+                <button type="submit" class="btn-tam">Giriş Yap</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

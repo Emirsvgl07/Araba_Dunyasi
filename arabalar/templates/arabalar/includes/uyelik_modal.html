@@ -1,0 +1,45 @@
+<div id="uyelik-modal" class="modal-overlay gizli">
+    <div class="modal-icerik">
+        <button class="kapat-btn">&times;</button>
+
+        <div id="giris-kutusu">
+            <h2 style="text-align:center;">Garaja Giriş</h2>
+            <p class="alt-baslik" style="text-align:center; color:#666; margin-bottom:20px;">Tutkuna kaldığın yerden devam et.</p>
+            <form id="form-giris">
+                <div class="input-grubu">
+                    <input type="email" id="giris-email" placeholder="E-posta Adresi" required>
+                </div>
+                <div class="input-grubu">
+                    <input type="password" id="giris-sifre" placeholder="Şifre" required>
+                </div>
+                <button type="submit" class="btn-tam">Giriş Yap</button>
+            </form>
+            <p class="gecis-yazisi" style="text-align:center; margin-top:15px;">
+                Hesabın yok mu? <a href="#" id="kayit-linki" style="color:var(--renk-ana);">Hemen Kaydol</a>
+            </p>
+        </div>
+
+        <div id="kayit-kutusu" style="display: none;">
+            <h2 style="text-align:center;">Aramıza Katıl</h2>
+            <p class="alt-baslik" style="text-align:center; color:#666; margin-bottom:20px;">Kendi dijital garajını oluştur.</p>
+            <form id="form-kayit">
+                <div class="input-grubu">
+                    <input type="text" id="kayit-ad" placeholder="Adın" required>
+                </div>
+                <div class="input-grubu">
+                    <input type="text" id="kayit-soyad" placeholder="Soyadın" required>
+                </div>
+                <div class="input-grubu">
+                    <input type="email" id="kayit-email" placeholder="E-posta Adresi" required>
+                </div>
+                <div class="input-grubu">
+                    <input type="password" id="kayit-sifre" placeholder="Şifre Belirle" required>
+                </div>
+                <button type="submit" class="btn-tam">Ücretsiz Kaydol</button>
+            </form>
+            <p class="gecis-yazisi" style="text-align:center; margin-top:15px;">
+                Zaten üye misin? <a href="#" id="giris-linki" style="color:var(--renk-ana);">Giriş Yap</a>
+            </p>
+        </div>
+    </div>
+</div>

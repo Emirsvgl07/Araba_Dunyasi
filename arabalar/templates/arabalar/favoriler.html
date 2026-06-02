@@ -1,0 +1,19 @@
+{% extends 'arabalar/base.html' %}
+
+{% block sidebar %}{% endblock %}
+
+{% block body_attrs %}data-kategori-sayfasi="Favoriler"{% endblock %}
+
+{% block content %}
+<div class="sayfa-bolumu">
+    <h1 class="bolum-basligi"><i class="fa-solid fa-warehouse"></i> Garajım</h1>
+
+    <div id="kart-konteyner" class="kart-konteyner">
+        <p style="text-align:center;">Yükleniyor...</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block modals %}
+{% include 'arabalar/includes/uyelik_modal.html' %}
+{% endblock %}

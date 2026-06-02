@@ -1,0 +1,8 @@
+{% extends 'arabalar/base.html' %}
+
+{% block body_attrs %}data-kategori-sayfasi="{{ kategori_adi }}"{% endblock %}
+
+{% block content %}
+<h1 class="kategori-sayfa-basligi">{{ kategori_adi }}</h1>
+<div id="kart-konteyner" class="kart-konteyner"></div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'arabalar/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="hero-bolumu">
+    <div class="hero-icerik">
+        <h1>Kendine En Uygun Aracı Bulmak İster misin?</h1>
+        <p>
+            Yapay zeka destekli testimizi çöz, sürüş tarzına ve bütçene
+            en uygun hayalindeki arabayı saniyeler içinde öğren!
+        </p>
+
+        <div class="hero-butonlar">
+            <a href="{% url 'test' %}" class="btn-ozel btn-kirmizi">
+                <i class="fa-solid fa-clipboard-check"></i> Testi Çöz
+            </a>
+
+            <a href="{% url 'karsilastir' %}" class="btn-ozel btn-seffaf">
+                <i class="fa-solid fa-code-compare"></i> Karşılaştırmaya Başla
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="sayfa-bolumu one-cikanlar" style="margin-top: 40px;">
+    <h2 class="bolum-basligi" style="text-align:center; color:#333; margin-bottom:20px;">Öne Çıkan Modeller</h2>
+
+    <div class="kart-konteyner" id="one-cikan-kartlar"></div>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="{% url 'modeller' %}" class="btn-ozel btn-kirmizi" style="display:inline-block; font-size: 1rem; padding: 10px 25px;">Tüm Modelleri Gör</a>
+    </div>
+</section>
+
+<section class="sayfa-bolumu kategori-kesfet" style="background-color: #e9ecef; padding: 50px 0; margin-top: 50px;">
+    <h2 class="bolum-basligi" style="text-align:center; margin-bottom:30px;">Kategorileri Keşfet</h2>
+
+    <div class="kategori-kartlari" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+
+        <a href="{% url 'kategori' 'superspor' %}" class="kategori-karti">
+            <img src="{% static 'images/superspor.jpg' %}" alt="Süper Spor" onerror="this.src='https://placehold.co/380x250?text=SuperSpor'">
+            <h3>Süper Spor</h3>
+        </a>
+
+        <a href="{% url 'kategori' 'suv' %}" class="kategori-karti">
+            <img src="{% static 'images/suv.jpg' %}" alt="SUV" onerror="this.src='https://placehold.co/380x250?text=SUV'">
+            <h3>SUV</h3>
+        </a>
+
+        <a href="{% url 'kategori' 'klasikler' %}" class="kategori-karti">
+            <img src="{% static 'images/klasik.jpg' %}" alt="Klasikler" onerror="this.src='https://placehold.co/380x250?text=Klasik'">
+            <h3>Klasikler</h3>
+        </a>
+
+    </div>
+</section>
+
+<section class="sayfa-bolumu site-ozellikleri" style="padding: 50px 20px; text-align: center;">
+    <h2 class="bolum-basligi">Araçları Tanımanın Yeni Yolları</h2>
+    <div class="ozellik-kutulari" style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 30px;">
+
+        <div class="ozellik-kutu" style="max-width: 300px; cursor: pointer;" onclick="window.location.href='{% url 'karsilastir' %}'">
+            <i class="fa-solid fa-scale-balanced fa-3x" style="color: var(--renk-ana); margin-bottom: 20px;"></i>
+            <h3>Karşılaştırma Aracı</h3>
+            <p>Beğendiğin modelleri seç, teknik özelliklerini kolayca yan yana gör.</p>
+            <a href="{% url 'karsilastir' %}" class="link-detay" onclick="event.stopPropagation()">Karşılaştırmaya Başla</a>
+        </div>
+
+        <div class="ozellik-kutu" style="max-width: 300px; cursor: pointer;" onclick="window.location.href='{% url 'test' %}'">
+            <i class="fa-solid fa-clipboard-question fa-3x" style="color: var(--renk-ana); margin-bottom: 20px;"></i>
+            <h3>Sana Uygun Araç Testi</h3>
+            <p>Birkaç basit soruyla karakterine ve ihtiyaçlarına en uygun araba türünü keşfet.</p>
+            <a href="{% url 'test' %}" class="link-detay" onclick="event.stopPropagation()">Testi Çöz</a>
+        </div>
+
+    </div>
+</section>
+
+<section id="son-gezilenler-bolumu" class="sayfa-bolumu" style="display: none; background-color: #f8f9fa; padding-top: 40px;">
+    <h2 class="bolum-basligi" style="font-size: 2rem; margin-bottom: 30px;">Son Gezdiğin Araçlar</h2>
+    <div id="son-gezilenler-konteyner" class="kart-konteyner"></div>
+</section>
+{% endblock %}
+
+{% block modals %}
+{% include 'arabalar/includes/uyelik_modal.html' %}
+{% endblock %}

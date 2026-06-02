@@ -1,0 +1,128 @@
+{% extends 'arabalar/base.html' %}
+
+{% block content %}
+<div class="detay-konteyner">
+
+    <h1 id="detay-baslik">{% if araba %}{{ araba.marka_model }}{% else %}Yükleniyor...{% endif %}</h1>
+    <p id="detay-kategori" style="text-align: center; color: var(--renk-yazi-orta); font-size: 1.2rem; margin-top: -30px; margin-bottom: 30px;">{% if araba %}{{ araba.kategori }}{% else %}...{% endif %}</p>
+
+    <div id="detay-slider" class="detay-slider">
+        <div class="detay-resimler" id="resim-kapsayici"></div>
+        <button id="btn-geri" class="detay-slider-btn prev"><i class="fa-solid fa-chevron-left"></i></button>
+        <button id="btn-ileri" class="detay-slider-btn next"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <div style="display: flex; gap: 15px; margin-bottom: 40px; justify-content: center; flex-wrap: wrap;">
+        <button class="karsilastir-ekle" id="detay-karsilastir-btn" style="padding: 15px 30px; font-size: 1rem; max-width: 250px;">Karşılaştırmaya Ekle</button>
+        <button class="favori-btn-detay kart-buton" id="detay-favori-btn" style="width: auto; padding: 15px 30px; max-width: 250px;"><i class="fa-regular fa-heart"></i> Favorilere Ekle</button>
+        <button class="kart-buton" onclick="if(typeof dragModunuAc==='function') dragModunuAc()" style="background-color: #e67e22; width: auto; padding: 15px 30px; max-width: 250px;"><i class="fa-solid fa-flag-checkered"></i> Drag Yarışı</button>
+        <button class="kart-buton" onclick="if(typeof brosurModunuAc==='function') brosurModunuAc()" style="background-color: #2980b9; width: auto; padding: 15px 30px; max-width: 250px;"><i class="fa-solid fa-file-pdf"></i> Broşür Modu</button>
+    </div>
+
+    <h2>Araç Hakkında</h2>
+    <p id="detay-aciklama" style="line-height: 1.8; font-size: 1.1rem; color: var(--renk-yazi-orta);">{% if araba %}{{ araba.aciklama }}{% else %}Bilgi yükleniyor...{% endif %}</p>
+
+    <h2>Teknik Özellikler</h2>
+    <table class="karsilastirma-tablosu" style="margin-bottom: 50px;">
+        <tbody id="detay-tablo"></tbody>
+    </table>
+
+    <div id="yakit-hesaplama-alani"></div>
+    <div id="yorum-alani"></div>
+
+    <a href="{% url 'modeller' %}" class="geri-butonu" style="margin-top: 30px;">&larr; Listeye Dön</a>
+</div>
+{% endblock %}
+
+{% block modals %}
+{% include 'arabalar/includes/uyelik_modal.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const aracId = urlParams.get('id');
+
+    if (typeof arabalar !== 'undefined' && aracId) {
+        const araba = arabalar.find(a => a.id == aracId);
+
+        if (araba) {
+            document.getElementById('detay-baslik').textContent = araba.markaModel;
+            document.getElementById('detay-kategori').textContent = araba.kategori;
+            document.getElementById('detay-aciklama').textContent = araba.aciklama;
+            document.title = araba.markaModel + " - İnceleme";
+            document.body.setAttribute('data-detay-id', araba.id);
+
+            let tablo = "";
+            for (const [key, val] of Object.entries(araba.ozellikler)) {
+                tablo += `<tr><td><b>${key}</b></td><td>${val}</td></tr>`;
+            }
+            document.getElementById('detay-tablo').innerHTML = tablo;
+
+            const resimKapsayici = document.getElementById('resim-kapsayici');
+            const btnGeri = document.getElementById('btn-geri');
+            const btnIleri = document.getElementById('btn-ileri');
+
+            if (!araba.resimler || araba.resimler.length === 0) {
+                resimKapsayici.innerHTML = `<img src="https://placehold.co/800x450?text=Resim+Yok" class="detay-resim-oge active">`;
+                btnGeri.style.display = 'none';
+                btnIleri.style.display = 'none';
+            } else {
+                resimKapsayici.innerHTML = araba.resimler.map((src, index) =>
+                    `<img src="${src}" class="detay-resim-oge ${index === 0 ? 'active' : ''}">`
+                ).join('');
+
+                if (araba.resimler.length > 1) {
+                    let aktifIndex = 0;
+                    const resimler = document.querySelectorAll('.detay-resim-oge');
+
+                    btnIleri.onclick = function() {
+                        resimler[aktifIndex].classList.remove('active');
+                        aktifIndex = (aktifIndex + 1) % resimler.length;
+                        resimler[aktifIndex].classList.add('active');
+                    };
+
+                    btnGeri.onclick = function() {
+                        resimler[aktifIndex].classList.remove('active');
+                        aktifIndex = (aktifIndex - 1 + resimler.length) % resimler.length;
+                        resimler[aktifIndex].classList.add('active');
+                    };
+                } else {
+                    btnGeri.style.display = 'none';
+                    btnIleri.style.display = 'none';
+                }
+            }
+
+            const favBtn = document.getElementById('detay-favori-btn');
+            if (typeof favoriMi === 'function' && favoriMi(araba.id)) {
+                favBtn.classList.add('aktif');
+                favBtn.innerHTML = '<i class="fa-solid fa-heart"></i> Favorilerden Çıkar';
+                favBtn.style.backgroundColor = "#333";
+            }
+            favBtn.onclick = function() {
+                if(typeof favoriIslemi === 'function') favoriIslemi(araba.id, this);
+            };
+
+            const karsilastirBtn = document.getElementById('detay-karsilastir-btn');
+            karsilastirBtn.setAttribute('data-car-id', araba.id);
+            const liste = JSON.parse(localStorage.getItem('karsilastirmaListesi') || '[]');
+            if(liste.includes(String(araba.id))) {
+                karsilastirBtn.classList.add('aktif');
+                karsilastirBtn.innerText = "Eklendi ✔";
+                karsilastirBtn.style.backgroundColor = "#27ae60";
+            }
+            karsilastirBtn.onclick = function() {
+                if(typeof karsilastirmaEkle === 'function') karsilastirmaEkle(araba.id, this);
+            };
+
+            if(typeof window.yakitHesaplamaModulunuBaslat === 'function') window.yakitHesaplamaModulunuBaslat(araba);
+            if(typeof window.yorumSisteminiBaslat === 'function') window.yorumSisteminiBaslat(araba.id);
+
+        } else {
+            document.querySelector('.detay-konteyner').innerHTML = "<h2 style='text-align:center;'>Araç Bulunamadı.</h2><a href='" + window.SITE_URLS.modeller + "' class='geri-butonu'>Listeye Dön</a>";
+        }
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ sayfa_basligi|default:"Araba Dünyası" }}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    {% block extra_head %}{% endblock %}
+</head>
+<body {% block body_attrs %}{% endblock %}>
+
+    {% block sidebar %}
+    <aside id="kategori-bari" class="yan-bar">
+        <h2>Kategoriler</h2>
+        <ul>
+            <li><a href="{% url 'kategori' 'superspor' %}">Süper Spor</a></li>
+            <li><a href="{% url 'kategori' 'spor-arabalar' %}">Spor Arabalar</a></li>
+            <li><a href="{% url 'kategori' 'luks-sedanlar' %}">Lüks Sedanlar</a></li>
+            <li><a href="{% url 'kategori' 'suv' %}">SUV</a></li>
+            <li><a href="{% url 'kategori' 'klasikler' %}">Klasikler</a></li>
+            <li><a href="{% url 'kategori' 'hot-hatch' %}">Hot Hatch</a></li>
+            <li><a href="{% url 'kategori' 'elektrikli' %}">Elektrikli</a></li>
+            <li><a href="{% url 'modeller' %}">Tüm Modeller</a></li>
+        </ul>
+        <div class="yan-bar-centik"><i class="fa-solid fa-bars"></i></div>
+    </aside>
+    {% endblock %}
+
+    <header class="site-header">
+        <div class="logo"><a href="{% url 'ana_sayfa' %}">ARABA DÜNYASI</a></div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="{% url 'ana_sayfa' %}">Ana Sayfa</a></li>
+                <li><a href="{% url 'modeller' %}">Modeller</a></li>
+                {% if giris_butonu %}
+                <li><a href="#" id="uye-girisi-btn" class="nav-btn"><i class="fa-regular fa-user"></i> Giriş Yap / Kaydol</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 Araba Dünyası. Tüm hakları saklıdır (Okul Projesi).</p>
+    </footer>
+
+    <a href="{% url 'karsilastir' %}" id="ana-karsilastir-butonu" class="ana-karsilastir-butonu gizli">
+        Karşılaştır <span id="karsilastirma-sayisi"></span>
+    </a>
+
+    {% block modals %}{% endblock %}
+
+    <script>
+        window.SITE_STATIC = "{% get_static_prefix %}";
+        window.SITE_URLS = {
+            anaSayfa: "{% url 'ana_sayfa' %}",
+            modeller: "{% url 'modeller' %}",
+            favoriler: "{% url 'favoriler' %}",
+            karsilastir: "{% url 'karsilastir' %}",
+            test: "{% url 'test' %}"
+        };
+    </script>
+    <script src="{% url 'data_js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

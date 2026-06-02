@@ -1,0 +1,57 @@
+{% extends 'arabalar/base.html' %}
+
+{% block content %}
+<div class="test-konteyner">
+    <h1>Sana En Uygun Aracı Birlikte Bulalım!</h1>
+    <p>Aşağıdaki 5 soruya cevap vererek karakterine en uygun araba türünü keşfet.</p>
+
+    <form id="arac-test-formu">
+
+        <div class="soru-blogu">
+            <h3>1. Bir araba yolculuğunda senin için en önemli şey nedir?</h3>
+            <label><input type="radio" name="q1" value="performans" required> <span>Virajlı yollarda hız ve adrenalin.</span></label>
+            <label><input type="radio" name="q1" value="stil"> <span>Şehirde tüm gözlerin üzerimde olması.</span></label>
+            <label><input type="radio" name="q1" value="konfor"> <span>Uzun yolda sessiz ve konforlu bir sürüş.</span></label>
+            <label><input type="radio" name="q1" value="pratiklik"> <span>Yanıma bolca eşya ve arkadaşlarımı alabilmek.</span></label>
+        </div>
+
+        <div class="soru-blogu">
+            <h3>2. Arabanın motor sesi nasıl olmalı?</h3>
+            <label><input type="radio" name="q2" value="performans" required> <span>Yüksek devirli, kükreyen bir canavar.</span></label>
+            <label><input type="radio" name="q2" value="konfor"> <span>Mümkün olduğunca sessiz, fısıltı gibi.</span></label>
+            <label><input type="radio" name="q2" value="stil"> <span>Güçlü ama rafine, tok bir V8 sesi.</span></label>
+            <label><input type="radio" name="q2" value="pratiklik"> <span>Ekonomik ve verimli, ses önemli değil.</span></label>
+        </div>
+
+        <div class="soru-blogu">
+            <h3>3. Bir arabanın tasarımında en çok neye dikkat edersin?</h3>
+            <label><input type="radio" name="q3" value="stil" required> <span>Agresif, kışkırtıcı ve herkesten farklı hatlara.</span></label>
+            <label><input type="radio" name="q3" value="performans"> <span>Aerodinamik yapıya, hava kanallarına ve spoylere.</span></label>
+            <label><input type="radio" name="q3" value="pratiklik"> <span>Geniş iç hacme ve büyük bagaja.</span></label>
+            <label><input type="radio" name="q3" value="konfor"> <span>Sade, zarif ve zamansız bir şıklığa.</span></label>
+        </div>
+
+        <div class="soru-blogu">
+            <h3>4. Arabanı en çok nerede kullanırsın?</h3>
+            <label><input type="radio" name="q4" value="pratiklik" required> <span>Şehir içi, alışveriş ve aile gezmeleri.</span></label>
+            <label><input type="radio" name="q4" value="konfor"> <span>Şehirler arası uzun otoyol yolculukları.</span></label>
+            <label><input type="radio" name="q4" value="stil"> <span>Akşamları şehir merkezindeki popüler caddelerde.</span></label>
+            <label><input type="radio" name="q4" value="performans"> <span>Hafta sonları boş ve virajlı dağ yollarında.</span></label>
+        </div>
+
+        <div class="soru-blogu">
+            <h3>5. Bütçen sınırsız olsaydı, arabanın en önemli özelliği ne olurdu?</h3>
+            <label><input type="radio" name="q5" value="performans" required> <span>En yüksek beygir gücü ve en hızlı tur zamanı.</span></label>
+            <label><input type="radio" name="q5" value="konfor"> <span>En lüks malzemeler ve en gelişmiş süspansiyon sistemi.</span></label>
+            <label><input type="radio" name="q5" value="pratiklik"> <span>En büyük iç hacim ve en kullanışlı teknoloji.</span></label>
+            <label><input type="radio" name="q5" value="stil"> <span>En nadir bulunan ve en ikonik tasarıma sahip olması.</span></label>
+        </div>
+
+        <button type="submit" class="hero-button" style="width: 100%; margin-top: 20px;">Sonuçları Göster</button>
+
+    </form>
+
+    <div id="sonuc-alani"></div>
+
+</div>
+{% endblock %}
