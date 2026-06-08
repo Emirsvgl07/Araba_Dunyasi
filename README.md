@@ -3,6 +3,8 @@
 Türkçe arayüzlü, Django tabanlı bir otomobil katalog ve keşif uygulaması. Süper sporlardan klasiklere kadar onlarca modeli kategorilere göre inceleyebilir, teknik özellikleri karşılaştırabilir, favorilerinize ekleyebilir ve kısa bir testle size uygun aracı bulabilirsiniz.
 
 **Canlı depo:** [github.com/Emirsvgl07/Araba_Dunyasi](https://github.com/Emirsvgl07/Araba_Dunyasi)
+EMİR SEVGİLİ 2024481007
+MURAT POLAT 2024481033
 
 ---
 
